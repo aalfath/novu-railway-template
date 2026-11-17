@@ -1,0 +1,29 @@
+#!/bin/sh
+# Defaults for Railway. Any of them can be overridden with a service variable.
+# The image also loads dist/.env.production (Novu Cloud values, cache on
+# localhost), so these must stay explicit.
+set -e
+export NODE_ENV="${NODE_ENV:-production}"
+export PORT="${PORT:-3004}"
+export IS_SELF_HOSTED=true
+export NOVU_ENTERPRISE="${NOVU_ENTERPRISE:-false}"
+export LOG_LEVEL="${LOG_LEVEL:-info}"
+export TZ="${TZ:-UTC}"
+export MONGO_MIN_POOL_SIZE="${MONGO_MIN_POOL_SIZE:-5}"
+export MONGO_MAX_POOL_SIZE="${MONGO_MAX_POOL_SIZE:-20}"
+export MONGO_AUTO_CREATE_INDEXES="${MONGO_AUTO_CREATE_INDEXES:-true}"
+export REDIS_FAMILY="${REDIS_FAMILY:-0}"
+export REDIS_DB_INDEX="${REDIS_DB_INDEX:-2}"
+export REDIS_CACHE_SERVICE_HOST="${REDIS_CACHE_SERVICE_HOST:-$REDIS_HOST}"
+export REDIS_CACHE_SERVICE_PORT="${REDIS_CACHE_SERVICE_PORT:-$REDIS_PORT}"
+export REDIS_CACHE_PASSWORD="${REDIS_CACHE_PASSWORD:-$REDIS_PASSWORD}"
+export REDIS_CACHE_FAMILY="${REDIS_CACHE_FAMILY:-0}"
+export STORAGE_SERVICE="${STORAGE_SERVICE:-AWS}"
+export SUBSCRIBER_WIDGET_JWT_EXPIRATION_TIME="${SUBSCRIBER_WIDGET_JWT_EXPIRATION_TIME:-15d}"
+export BROADCAST_QUEUE_CHUNK_SIZE="${BROADCAST_QUEUE_CHUNK_SIZE:-100}"
+export MULTICAST_QUEUE_CHUNK_SIZE="${MULTICAST_QUEUE_CHUNK_SIZE:-100}"
+export IS_EMAIL_INLINE_CSS_DISABLED="${IS_EMAIL_INLINE_CSS_DISABLED:-false}"
+export IS_USE_MERGED_DIGEST_ID_ENABLED="${IS_USE_MERGED_DIGEST_ID_ENABLED:-false}"
+export NEW_RELIC_ENABLED="${NEW_RELIC_ENABLED:-false}"
+cd /usr/src/app
+exec node dist/main.js
